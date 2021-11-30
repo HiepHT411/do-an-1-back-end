@@ -34,7 +34,7 @@ public class Feedback {
 	private String description;
 	
 	@Column(name = "created_at")
-	private Date date;
+	private String date;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore

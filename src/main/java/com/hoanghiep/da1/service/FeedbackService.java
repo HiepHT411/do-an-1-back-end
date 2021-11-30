@@ -1,5 +1,7 @@
 package com.hoanghiep.da1.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,8 +41,10 @@ public class FeedbackService {
 		
 		feedback.setUser(user);
 		
+		DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss dd-MM-yyyy");
 		Date date = Calendar.getInstance().getTime();
-		feedback.setDate(date);
+		String feedbackDate = dateFormat.format(date);
+		feedback.setDate(feedbackDate);
 		
 		Feedback savedFeedback = feedbackRepository.save(feedback);
 		

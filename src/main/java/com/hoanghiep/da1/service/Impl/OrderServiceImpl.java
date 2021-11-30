@@ -1,6 +1,10 @@
 package com.hoanghiep.da1.service.Impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,18 +48,20 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Order> findOrderByEmail(String email) {
-
-		return orderRepository.findOrderByEmail(email);
+		
+		return orderRepository.findByEmail(email);
 	}
 
 	@Override
 	@Transactional
-	public Order postOrder(Order validOrder, Map<Integer, Integer> productsId) {
+	public Order postOrder(Order validOrder, Map<String, Integer> productsId) {
 		Order order = new Order();
         List<OrderItem> orderItemList = new ArrayList<>();
-
-        for (Map.Entry<Integer, Integer> entry : productsId.entrySet()) {
-            Product product = productRepository.findById(entry.getKey()).get();
+        System.out.println("3333");
+        if(productsId.entrySet().isEmpty()) System.out.println("productsId is null");
+        for (Map.Entry<String, Integer> entry : productsId.entrySet()) {
+        	if(entry == null) System.out.println("entry is null");
+            Product product = productRepository.findById(Integer.parseInt(entry.getKey())).get();
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(product);
             orderItem.setAmount((product.getPrice() * entry.getValue()));
@@ -70,6 +76,8 @@ public class OrderServiceImpl implements OrderService {
         order.setAddress(validOrder.getAddress());
         order.setEmail(validOrder.getEmail());
         order.setPhoneNumber(validOrder.getPhoneNumber());
+
+		
         orderRepository.save(order);
 
         String subject = "Order #" + order.getId();
@@ -78,9 +86,11 @@ public class OrderServiceImpl implements OrderService {
         attributes.put("order", order);
         try {
 			mailSender.sendMessageHtml(order.getEmail(), subject, template, attributes);
+			System.out.println("4444");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+        System.out.println("5555");
         return order;
 	}
 

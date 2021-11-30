@@ -25,26 +25,26 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequiredArgsConstructor
 @PreAuthorize("hasAuthority('ADMIN')")
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/admin")
 @Slf4j
 public class OrderController {
 
 	@Autowired
 	private final OrderService orderService;
 	
-	@GetMapping("/orders")
+	@GetMapping("/orders/all")
     public ResponseEntity<List<Order>> getAllOrders() {
 		log.info("Retrieving all orders");
         return ResponseEntity.ok(orderService.findAllOrders());
     }
 
-    @PostMapping("/order")
+    @PostMapping("/orders")
     public ResponseEntity<List<Order>> getUserOrdersByEmail(@RequestBody User user) {
-    	log.info("Find user's order by email-"+user.getEmail());
+    	log.info("get user's order by email-"+user.getEmail());
         return ResponseEntity.ok(orderService.findOrderByEmail(user.getEmail()));
     }
 
-    @DeleteMapping("/order/delete/{orderId}")
+    @DeleteMapping("/orders/delete/{orderId}")
     public ResponseEntity<List<Order>> deleteOrder(@PathVariable(value = "orderId") int orderId) {
     	log.info("Deleting order by id-"+orderId);
         return ResponseEntity.ok(orderService.deleteOrder(orderId));

@@ -11,9 +11,9 @@ public interface OrderService {
 
     List<Order> findOrderByEmail(String email);
 
-    Order postOrder(Order validOrder, Map<Integer, Integer> productsId);
+    Order postOrder(Order validOrder, Map<String, Integer> productsId);
 
-    List<Order> deleteOrder(int orderId);
-	
+    List<Order> deleteOrder(int orderId);	
+    
 	
 }

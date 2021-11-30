@@ -29,12 +29,12 @@ public class FeedbackController {
 	
 	private final FeedbackService feedbackService;
 	
-	@GetMapping("/admin/{adminId}/feedbacks")
+	@GetMapping("/admin/{userId}/feedbacks")
 	@PreAuthorize("hasRole('ADMIN')")
-	public List<Feedback> retrieveAllFeedbacksOfSpecificUser(@PathVariable(value = "adminId") int adminId){
-		log.info("Get all feedbacks received from user-"+adminId);
+	public List<Feedback> retrieveAllFeedbacksOfSpecificUser(@PathVariable(value = "userId") int userId){
+		log.info("Get all feedbacks received from user-"+userId);
 		
-		return feedbackService.getAllFeedbacksOfSpecificUser(adminId);
+		return feedbackService.getAllFeedbacksOfSpecificUser(userId);
 	}
 	
 	@PostMapping(path = "/user/{userId}/feedbacks")											//ok
@@ -52,7 +52,7 @@ public class FeedbackController {
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/all/feedbacks")
+	@GetMapping("/admin/feedbacks/all")
 	public List<Feedback> retrieveAllFeedbacks(){
 		log.info("retrieving all feedbacks from database");
 		

@@ -95,6 +95,12 @@
     		<version>5.3.13</version>
 		</dependency-->
 		
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.4.4</version>
+		</dependency>
+		
 		<!-- localhost:8080/swagger-ui.html -->
 		<dependency>
 			<groupId>org.springdoc</groupId>

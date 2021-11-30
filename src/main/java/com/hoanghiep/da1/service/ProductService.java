@@ -18,7 +18,7 @@ public interface ProductService {
 
     List<Product> findProductsByIds(List<Integer> productsId);
 
-    List<Product> filter(List<String> types, List<Integer> prices, boolean sortByPrice);
+    List<Product> filter(List<String> types, List<String> titles, List<Integer> prices, boolean sortByPrice);
 
     List<Product> findByTitleOrderByPriceDesc(String title);
 

@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hoanghiep.da1.entity.Product;
+import com.hoanghiep.da1.payload.ProductSearchRequest;
 import com.hoanghiep.da1.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -44,20 +46,20 @@ public class ProductController {
 		return ResponseEntity.ok(product);
 	}
 
-//	@PostMapping("/search")
-//    public ResponseEntity<List<PerfumeResponse>> findPerfumesByFilterParams(@RequestBody PerfumeSearchRequest filter) {
-//        return ResponseEntity.ok(perfumeMapper.filter(filter.getPerfumers(), filter.getGenders(), filter.getPrices(), filter.isSortByPrice()));
-//    }
-//
-//    @PostMapping("/search/gender")
-//    public ResponseEntity<List<PerfumeResponse>> findByPerfumeGender(@RequestBody PerfumeSearchRequest filter) {
-//        return ResponseEntity.ok(perfumeMapper.findByPerfumeGenderOrderByPriceDesc(filter.getPerfumeGender()));
-//    }
-//
-//    @PostMapping("/search/perfumer")
-//    public ResponseEntity<List<PerfumeResponse>> findByPerfumer(@RequestBody PerfumeSearchRequest filter) {
-//        return ResponseEntity.ok(perfumeMapper.findByPerfumerOrderByPriceDesc(filter.getPerfumer()));
-//    }
+	@PostMapping("/products/search")
+    public ResponseEntity<List<Product>> findProductsByFilterParams(@RequestBody ProductSearchRequest filter) {
+        return ResponseEntity.ok(productService.filter(filter.getTypes(), filter.getTitles(), filter.getPrices(), filter.isSortByPrice()));
+    }
+
+    @PostMapping("/products/search/title")
+    public ResponseEntity<List<Product>> findByProductTitle(@RequestBody ProductSearchRequest filter) {
+        return ResponseEntity.ok(productService.findByTitleOrderByPriceDesc(filter.getTitle()));
+    }
+
+    @PostMapping("/products/search/type")
+    public ResponseEntity<List<Product>> findByPerfumer(@RequestBody ProductSearchRequest filter) {
+        return ResponseEntity.ok(productService.findByTypeOrderByPriceDesc(filter.getType()));
+    }
 	
 	
 	@PostMapping("/admin/products/save")
@@ -67,14 +69,14 @@ public class ProductController {
 		return ResponseEntity.ok(productService.saveProduct(product));
 	}
 	
-	@PostMapping("/admin/products/update/{productId}")
+	@PutMapping("/admin/products/update/{productId}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Product> update(@PathVariable("productId") int productId, @RequestBody Product product){
 		log.info("Create product: "+ product.getTitle());
-		return ResponseEntity.ok(productService.saveProduct(product));
+		return ResponseEntity.ok(productService.updateProduct(product, productId));
 	}
 	
-	@DeleteMapping("/admin/products/{id}")
+	@DeleteMapping("/admin/products/delete/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<Product>> deleteProduct(@PathVariable int id){
 //		Product product = productRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("product not found"));
