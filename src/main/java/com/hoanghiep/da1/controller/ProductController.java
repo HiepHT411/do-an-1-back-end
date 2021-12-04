@@ -57,7 +57,7 @@ public class ProductController {
     }
 
     @PostMapping("/products/search/type")
-    public ResponseEntity<List<Product>> findByPerfumer(@RequestBody ProductSearchRequest filter) {
+    public ResponseEntity<List<Product>> findByType(@RequestBody ProductSearchRequest filter) {
         return ResponseEntity.ok(productService.findByTypeOrderByPriceDesc(filter.getType()));
     }
 	

@@ -113,7 +113,7 @@ public class GalleryController {
 	@GetMapping(value="/resource/images/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<Resource> getStaticImage(@PathVariable String name) throws IOException{
 		File img = null;
-		log.info("get: "+name+".jpg");
+		//log.info("get: "+name+".jpg");
 		
 		try {
 			img = new ClassPathResource("static/images/"+name+".jpg").getFile();

@@ -94,7 +94,7 @@ public class ProductServiceImpl implements ProductService {
                 			break;
                 		case "SPECIALDEVICE":
                 			typesList.addAll(productList.stream()
-                                    .filter(product-> product.getType().equals(EProductType.SPECIALDEVICE))
+                                    .filter(product-> product.getType().equals(EProductType.SPECIALSERVICE))
                                     .collect(Collectors.toList()));
                 			break;
                 		case "TRANSPORTATION":
@@ -127,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
                 			productList.addAll(productRepository.findByTypeOrderByPriceDesc(EProductType.FOODMENU));
                 			break;
                 		case "SPECIALDEVICE":
-                			productList.addAll(productRepository.findByTypeOrderByPriceDesc(EProductType.SPECIALDEVICE));
+                			productList.addAll(productRepository.findByTypeOrderByPriceDesc(EProductType.SPECIALSERVICE));
                 			break;
                 		case "TRANSPORTATION":
                 			productList.addAll(productRepository.findByTypeOrderByPriceDesc(EProductType.TRANSPORTATION));
@@ -174,7 +174,7 @@ public class ProductServiceImpl implements ProductService {
 		case "FOODMENU":
 			return productRepository.findByTypeOrderByPriceDesc(EProductType.FOODMENU);
 		case "SPECIALDEVICE":
-			return productRepository.findByTypeOrderByPriceDesc(EProductType.SPECIALDEVICE);
+			return productRepository.findByTypeOrderByPriceDesc(EProductType.SPECIALSERVICE);
 		case "TRANSPORTATION":
 			return productRepository.findByTypeOrderByPriceDesc(EProductType.TRANSPORTATION);
 		case "VENUE":

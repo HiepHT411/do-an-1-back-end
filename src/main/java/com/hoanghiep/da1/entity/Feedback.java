@@ -36,6 +36,9 @@ public class Feedback {
 	@Column(name = "created_at")
 	private String date;
 	
+	@Column(name = "phoneNumber")
+	private String phoneNumber;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
 	private User user;
