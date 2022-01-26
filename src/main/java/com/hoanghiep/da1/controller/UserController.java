@@ -87,22 +87,25 @@ public class UserController {
 	
 	
 	@PostMapping("/users/cart")
+	@PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<Product>> getUserCart(@RequestBody List<Integer> productsIds) {	//JSON: [1,2,3]
         return ResponseEntity.ok(userService.getCart(productsIds));
     }
 
     @GetMapping("/users/orders")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<Order>> getUserOrders(@AuthenticationPrincipal UserDetailsImpl userPrincipal ) {
     	log.info("Get all user's orders by email");
         return ResponseEntity.ok(orderService.findOrderByEmail(userPrincipal.getEmail()));
     }
 
     @PostMapping("/users/orders")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Order> postOrder(@Valid @RequestBody OrderRequest orderRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InputFieldException(bindingResult);
         } else {
-        	System.out.println("1111");
+        	//System.out.println("Dat hang ok");
             return ResponseEntity.ok(orderMapper.postOrder(orderRequest));
         }
     }

@@ -143,6 +143,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>dichvucuoihoi</finalName>
 	</build>
 
 </project>

@@ -26,7 +26,7 @@ public class Order {
     private int id;
     private Double totalPrice;
     private LocalDate date;
-    private String usename;
+    private String username;
     private String email;
     private String phoneNumber;
     private String address;

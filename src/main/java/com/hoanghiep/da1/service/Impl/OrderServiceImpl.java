@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
 	public Order postOrder(Order validOrder, Map<String, Integer> productsId) {
 		Order order = new Order();
         List<OrderItem> orderItemList = new ArrayList<>();
-        System.out.println("3333");
+        //System.out.println("3333");
         if(productsId.entrySet().isEmpty()) System.out.println("productsId is null");
         for (Map.Entry<String, Integer> entry : productsId.entrySet()) {
         	if(entry == null) System.out.println("entry is null");
@@ -68,29 +68,32 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setQuantity(entry.getValue());
             orderItemList.add(orderItem);
             orderItemRepository.save(orderItem);
+            //System.out.println("4444");
         }
         
         order.getOrderItems().addAll(orderItemList);
         order.setTotalPrice(validOrder.getTotalPrice());
-        order.setUsename(validOrder.getUsename());
+        order.setUsername(validOrder.getUsername());
         order.setAddress(validOrder.getAddress());
         order.setEmail(validOrder.getEmail());
         order.setPhoneNumber(validOrder.getPhoneNumber());
 
 		
         orderRepository.save(order);
-
-        String subject = "Order #" + order.getId();
-        String template = "order-template";
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put("order", order);
-        try {
-			mailSender.sendMessageHtml(order.getEmail(), subject, template, attributes);
-			System.out.println("4444");
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-        System.out.println("5555");
+        
+        //System.out.println("5555");
+        
+//        String subject = "Order #" + order.getId();
+//        String template = "order-template";
+//        Map<String, Object> attributes = new HashMap<>();
+//        attributes.put("order", order);
+//        try {
+//			mailSender.sendMessageHtml(order.getEmail(), subject, template, attributes);
+//			System.out.println("6666");
+//		} catch (MessagingException e) {
+//			e.printStackTrace();
+//		}
+        //System.out.println("7777");
         return order;
 	}
 
